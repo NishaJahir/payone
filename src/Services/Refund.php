@@ -284,7 +284,7 @@ class Refund
                 return $this->reverseAuth($order, $payment, $preAuthUniqueId);
             }
         }
-
+        $this->logger->setIdentifier(__METHOD__)->error('refund', $paymentCode . $preAuthUniqueId);
         $requestData = $this->refundDataProvider->getPartialRefundData($paymentCode, $order, $refund, $preAuthUniqueId);
 
         return $this->api->doDebit($requestData);
