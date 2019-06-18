@@ -3,12 +3,13 @@
 namespace Payone\Providers\Api\Request;
 
 use Plenty\Modules\Order\Models\Order;
-
+use Plenty\Plugin\Log\Loggable;
 /**
  * Class DebitDataProvider
  */
 class DebitDataProvider extends DataProviderAbstract implements DataProviderOrder
 {
+    use Loggable;
     /**
      * {@inheritdoc}
      */
@@ -36,6 +37,7 @@ class DebitDataProvider extends DataProviderAbstract implements DataProviderOrde
      */
     public function getPartialRefundData($paymentCode, Order $order, Order $refund, $preAuthUniqueId)
     {
+        $this->getLogger(__METHOD__)->error('debitdata', $refund);
         $requestParams = $this->getDataFromOrder($paymentCode, $order, $preAuthUniqueId);
 
         $requestParams['order'] = $this->getOrderData($refund);
