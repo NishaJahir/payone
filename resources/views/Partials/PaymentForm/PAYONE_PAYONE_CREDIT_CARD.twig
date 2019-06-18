@@ -1,0 +1,82 @@
+{# @var creditcardcheck \Payone\Models\CreditCardCheckRequestData #}
+{{ errorMessage|raw }}
+
+<div id="payonePaymentModal" class="method-presentation">
+    <div class="method-title">
+        <div class="method-option form-check-label">
+            <h3>{{ paymentMethod.name }}:</h3>
+            <div class="method-icon">
+                <img src="{{ paymentMethod.icon }}" alt="{{ paymentMethod.name }} icon" onload="createIframeStart()">
+            </div>
+            <div class="description">{{ paymentMethod.description }}</div>
+        </div>
+    </div>
+
+    <form id="orderPlaceForm" name="paymentform" action="place-order" onsubmit="orderPlaceForm(event)">
+        <fieldset>
+            <div class="form-group row">
+                <label for="cardpan"
+                       class="col-sm-3 col-form-label col-form-label-lg">{{ trans('Payone::Template.ccNumber') }}
+                    :</label>
+                <div id="cardpan" class="inputIframe col-sm-9"></div>
+            </div>
+
+            <div class="form-group row">
+                <label for="cardtype"
+                       class="col-sm-3 col-form-label col-form-label-lg">{{ trans('Payone::Template.ccType') }}
+                    :</label>
+                <div id="cardtype" class="inputIframe col-sm-9"></div>
+            </div>
+
+            <div class="form-group row">
+                <label for="cardcvc2" class="col-sm-3 col-form-label col-form-label-lg">CVC:</label>
+                <div id="cardcvc2" class="inputIframe col-sm-9"></div>
+            </div>
+
+            <div class="form-group row">
+                <label for="expire"
+                       class="col-sm-3 col-form-label col-form-label-lg">{{ trans('Payone::Template.ccValidTo') }}
+                    :</label>
+                <div class="col-sm-9 inputIframe" id="expireInput">
+                    <div id="cardexpiremonth" class="col-md-6"></div>
+                    <div id="cardexpireyear" class="col-md-6"></div>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label for="firstname"
+                       class="col-sm-3 col-form-label col-form-label-lg">{{ trans('Payone::Template.firstName') }}
+                    :</label>
+                <div class="col-sm-9">
+                    <input id="firstname" name="firstname" type="text" class="form-control form-control-lg"
+                           required="required" autocomplete="off">
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label for="lastname"
+                       class="col-sm-3 col-form-label col-form-label-lg">{{ trans('Payone::Template.lastName') }}
+                    :</label>
+                <div class="col-sm-9">
+                    <input id="lastname" name="lastname" type="text" class="form-control form-control-lg"
+                           required="required" autocomplete="off">
+                </div>
+            </div>
+
+            <div id="errorOutput"></div>
+
+            <button id="orderCancel" class="btn btn-secondary btn-block payone-cancel" data-dismiss="modal"
+                    @click="clearFields"
+                    aria-label="{{ trans('Payone::Template.orderCancel') }}"
+                    onclick="cancelPayone()">
+                <i class="fa fa-arrow-left"></i> {{ trans('Payone::Template.orderCancel') }}
+            </button>
+            {% if errorMessage is empty %}
+                <button id="orderPlace" class="btn btn-primary btn-block">
+                    <i class="fa fa-arrow-right"
+                       aria-hidden="true"></i> {{ trans('Payone::Template.orderPlace') }}
+                </button>
+            {% endif %}
+        </fieldset>
+    </form>
+</div>
