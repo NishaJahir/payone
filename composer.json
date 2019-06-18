@@ -1,0 +1,23 @@
+{
+  "autoload-dev": {
+    "classmap": [
+      "src/",
+      "resources/lib/Tests",
+      "vendor/plentymarkets/plugin-interface"
+    ]
+  },
+  "require-dev": {
+    "plentymarkets/plugin-interface": "@dev",
+    "phpunit/phpunit": "~5",
+    "phpmetrics/phpmetrics": "^1.10"
+  },
+  "repositories": [
+    {
+      "type": "git",
+      "url": "https://github.com/plentymarkets/plugin-interface.git"
+    }
+  ],
+  "require": {
+    "arvatis/payone-php-api":"2.2.*"
+  }
+}
