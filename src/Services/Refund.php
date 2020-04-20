@@ -147,12 +147,14 @@ class Refund
             }
 
             if ($order->typeId != OrderType::TYPE_SALES_ORDER) {
+                $this->logger->setIdentifier(__METHOD__)->error('start', 'test');
                 $refundPaymentResult = $this->refundCreditMemo(
                     $payment,
                     $originalOrder,
                     $order,
                     $preAuth
                 );
+                
             } else {
                 $refundPaymentResult = $this->refundOrder($payment, $order, $preAuth);
             }
